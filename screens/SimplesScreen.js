@@ -23,21 +23,18 @@ class SimplesScreen extends React.Component {
         <View style={styles.containerOperadoresEBotoes}>
           <View style={styles.containerRow5}>
             <Button title="AC" />
-            <Button title="+/-" />
-            <Button title="%" />
-            <Button title="/" />
           </View>
           <View style={styles.containerRow4}>
             <Button title="7" />
             <Button title="8" />
             <Button title="9" />
-            <Button title="*" />
+            <Button title="/" />
           </View>
           <View style={styles.containerRow3}>
             <Button title="4" />
             <Button title="5" />
             <Button title="6" />
-            <Button title="-" />
+            <Button title="*" />
           </View>
           <View style={styles.containerRow2}>
             <Button title="1" />
@@ -48,6 +45,9 @@ class SimplesScreen extends React.Component {
           <View style={styles.containerRow1}>
             <Button title="0" />
             <Button title="." />
+            <Button title="-" />
+          </View>
+          <View style={styles.containerRow0}>
             <Button title="=" />
           </View>
         </View>
@@ -113,5 +113,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
     backgroundColor: "#d8d83a" // amarelo
+  },
+  containerRow0: {
+    flexDirection: 'row',
+    flex: 1,
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    backgroundColor: "#565656" // amarelo
   }
 });
