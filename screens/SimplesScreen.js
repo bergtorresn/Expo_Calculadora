@@ -69,33 +69,35 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flex: 1,
     justifyContent: 'space-around',
+    alignItems: 'center',
     backgroundColor: "#ffa154" // laranja
   },
   containerRow4: {
     flexDirection: 'row',
     flex: 1,
     justifyContent: 'space-around',
+    alignItems: 'center',
     backgroundColor: "#852ecc" // roxo
   },
   containerRow3: {
     flexDirection: 'row',
     flex: 1,
     justifyContent: 'space-around',
+    alignItems: 'center',
     backgroundColor: "#2dcc75" // verde
   },
   containerRow2: {
     flexDirection: 'row',
     flex: 1,
     justifyContent: 'space-around',
+    alignItems: 'center',
     backgroundColor: "#aa19b5" // rosa
   },
   containerRow1: {
     flexDirection: 'row',
     flex: 1,
     justifyContent: 'space-around',
+    alignItems: 'center',
     backgroundColor: "#d8d83a" // amarelo
-  },
-  btnPadrao: {
-    flex: 1
   }
 });
