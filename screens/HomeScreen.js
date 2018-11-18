@@ -2,7 +2,8 @@ import React from 'react';
 import {
   StyleSheet,
   Text,
-  View
+  View,
+  Button
 } from 'react-native';
 
 class HomeScreen extends React.Component {
@@ -10,6 +11,8 @@ class HomeScreen extends React.Component {
     return (
       <View style={styles.container}>
         <Text>Home</Text>
+        <Button title="Calculadora Simples" onPress={() => this.props.navigation.navigate('Simples')} />
+        <Button title="Calculadora Ciêntifica" onPress={() => this.props.navigation.navigate('Simples')} />
       </View>
     );
   }
