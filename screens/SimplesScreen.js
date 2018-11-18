@@ -2,6 +2,7 @@ import React from 'react';
 import {
   StyleSheet,
   Button,
+  Text,
   View
 } from 'react-native';
 
@@ -13,35 +14,40 @@ class SimplesScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.containerEntradaDeNumeros}></View>
+        <View style={styles.containerEntradaDeOperacoes}>
+          <Text>Entrada de operacoes</Text>
+        </View>
+        <View style={styles.containerResultado}>
+          <Text>Resultado das operacoes</Text>
+        </View>
         <View style={styles.containerOperadoresEBotoes}>
           <View style={styles.containerRow5}>
-            <Button title="AC"  />
-            <Button title="+/-"  />
+            <Button title="AC" />
+            <Button title="+/-" />
             <Button title="%" />
-            <Button title="/"  />
+            <Button title="/" />
           </View>
           <View style={styles.containerRow4}>
-            <Button title="7"  />
+            <Button title="7" />
             <Button title="8" />
-            <Button title="9"  />
-            <Button title="*"  />
+            <Button title="9" />
+            <Button title="*" />
           </View>
           <View style={styles.containerRow3}>
-            <Button title="4"  />
-            <Button title="5"  />
-            <Button title="6"  />
+            <Button title="4" />
+            <Button title="5" />
+            <Button title="6" />
             <Button title="-" />
           </View>
           <View style={styles.containerRow2}>
             <Button title="1" />
             <Button title="2" />
-            <Button title="3"  />
-            <Button title="+"  />
+            <Button title="3" />
+            <Button title="+" />
           </View>
           <View style={styles.containerRow1}>
-            <Button title="0"  />
-            <Button title="."  />
+            <Button title="0" />
+            <Button title="." />
             <Button title="=" />
           </View>
         </View>
@@ -57,9 +63,17 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column'
   },
-  containerEntradaDeNumeros: {
-    height: 100,
-    backgroundColor: "#4286f4" //a zul
+  containerEntradaDeOperacoes: {
+    height: 80,
+    alignItems: "flex-end",
+    justifyContent: "center",
+    backgroundColor: "#4286f4" // azul
+  },
+  containerResultado: {
+    height: 80,
+    alignItems: "flex-end",
+    justifyContent: "center",
+    backgroundColor: "#b51818" // vermelho
   },
   containerOperadoresEBotoes: {
     flex: 1,
