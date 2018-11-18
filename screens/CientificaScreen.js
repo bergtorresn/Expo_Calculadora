@@ -6,10 +6,14 @@ import {
 } from 'react-native';
 
 class CientificaScreen extends React.Component {
+  static navigationOptions = {
+    title: 'Calc Científica',
+  };
+
   render() {
     return (
       <View style={styles.container}>
-        <Text>CalculadoraCientifica</Text>
+        <Text>Calculadora Científica</Text>
       </View>
     );
   }
