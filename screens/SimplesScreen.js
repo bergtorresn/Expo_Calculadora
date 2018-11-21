@@ -48,10 +48,10 @@ class SimplesScreen extends React.Component {
     return (
       <View style={styles.container}>
         <View style={styles.containerEntradaDeOperacoes}>
-          <Text>{this.state.entrada}</Text>
+          <Text style={styles.txt}>{this.state.entrada}</Text>
         </View>
         <View style={styles.containerResultado}>
-          <Text>{this.state.saida}</Text>
+          <Text style={styles.txt}>{this.state.saida}</Text>
         </View>
         <View style={styles.containerOperadoresEBotoes}>
           <View style={styles.containerRow5}>
@@ -92,6 +92,12 @@ class SimplesScreen extends React.Component {
 export default SimplesScreen;
 
 const styles = StyleSheet.create({
+
+  txt: {
+    marginRight: 20,
+    fontWeight: 'bold',
+    fontSize: 20
+  },
   container: {
     flex: 1,
     flexDirection: 'column'
@@ -152,6 +158,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'space-around',
     alignItems: 'center',
-    backgroundColor: "#565656" // amarelo
+    backgroundColor: "#565656" // cinza
   }
 });
