@@ -16,12 +16,10 @@ class SimplesScreen extends React.Component {
     super(props);
 
     this.state = { saida: "", entrada: "" };
-
     this._onPressNumero = this._onPressButton.bind(this);
   }
 
   _onPressButton(value) {
-
     switch (value) {
       case "AC":
         this.setState({
@@ -80,6 +78,9 @@ class SimplesScreen extends React.Component {
           <View style={styles.containerRow1}>
             <Button title="0" onPress={() => this._onPressButton(0)} />
             <Button title="-" onPress={() => this._onPressButton('-')} />
+            <Button title="." onPress={() => this._onPressButton('.')} />
+          </View>
+          <View style={styles.containerRow0}>
             <Button title="=" onPress={() => this._onPressButton('=')} />
           </View>
         </View>
