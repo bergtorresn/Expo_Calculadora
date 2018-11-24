@@ -22,7 +22,7 @@ class SimplesScreen extends React.Component {
   _onPressButton(value) {
     switch (value) {
       case "AC":
-     
+        this._limparExibicao();
         break;
       case "=":
         this._resultado();
@@ -34,20 +34,36 @@ class SimplesScreen extends React.Component {
 
   _operacao(value) {
     var dadosDeEntrada = this.state.entrada;
-    //Caso o último character seja um operardo, não será possível adicionar outro operador
-    if (this._isCharacter(dadosDeEntrada.slice(-1)) && this._isCharacter(value)) {
-      return;
+    if (dadosDeEntrada.length > 0) {
+      var ultimoCharacter = dadosDeEntrada.slice(-1);
+      if (this._isOperador(ultimoCharacter) && this._isOperador(value)) {
+        dadosDeEntrada = dadosDeEntrada.replace(/.$/, value);
+        this.setState({
+          entrada: dadosDeEntrada
+        });
+      } else {
+        var equacao = dadosDeEntrada + value;
+        this.setState({
+          entrada: equacao
+        });
+      }
     } else {
-      var equacao = dadosDeEntrada + value;
-      this.setState({
-        entrada: equacao
-      });
+      if (this._isOperador(value)) {
+        return;
+      } else {
+        var equacao = dadosDeEntrada + value;
+        this.setState({
+          entrada: equacao
+        });
+      }
     }
   }
 
   _resultado() {
     var dadosDeEntrada = this.state.entrada;
-    if (this._isCharacter(dadosDeEntrada.slice(-1))) {
+    var ultimoCharacter = dadosDeEntrada.slice(-1);
+
+    if (this._isOperador(ultimoCharacter)) {
       //Caso o último character seja um operardo, o character será removido
       dadosDeEntrada = dadosDeEntrada.substring(0, dadosDeEntrada.length - 1);
     }
@@ -57,27 +73,19 @@ class SimplesScreen extends React.Component {
     });
   }
 
-  _limparExibicao(){
+  _limparExibicao() {
     this.setState({
       entrada: "",
       saida: ""
     });
   }
 
-  _isCharacter(value) {
+  _isOperador(value) {
     if (value == '+' || value == '-' || value == '*' || value == '/' || value == '.') {
       return true;
     }
     return false;
   }
-
-  _isOperador(value) {
-    if (value == '+' || value == '*' || value == '/' || value == '.') {
-      return true;
-    }
-    return false;
-  }
-
 
   render() {
     return (
@@ -110,7 +118,7 @@ class SimplesScreen extends React.Component {
             <Button title="3" onPress={() => this._onPressButton(3)} />
             <Button title="+" onPress={() => this._onPressButton('+')} />
           </View>
-          <View style={styles.btn} style={styles.containerRow}>
+          <View style={styles.containerRow}>
             <Button title="0" onPress={() => this._onPressButton(0)} />
             <Button title="." onPress={() => this._onPressButton('.')} />
             <Button title="-" onPress={() => this._onPressButton('-')} />
@@ -132,9 +140,6 @@ const styles = StyleSheet.create({
     marginRight: 20,
     fontWeight: 'bold',
     fontSize: 20
-  },
-  btn: {
-    flex: 1
   },
   container: {
     flex: 1,
