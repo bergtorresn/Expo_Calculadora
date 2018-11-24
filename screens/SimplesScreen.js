@@ -24,7 +24,10 @@ class SimplesScreen extends React.Component {
   _onPressButton(value) {
     switch (value) {
       case "AC":
-        this._limparExibicao();
+        this.setState({
+          entrada: "",
+          saida: ""
+        });
         break;
       case "=":
         var valorDeSaida = resultado(this.state.entrada);
@@ -38,13 +41,6 @@ class SimplesScreen extends React.Component {
           entrada: valorDeEntrada
         });
     }
-  }
-
-  _limparExibicao() {
-    this.setState({
-      entrada: "",
-      saida: ""
-    });
   }
 
   render() {
