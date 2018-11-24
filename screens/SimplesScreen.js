@@ -23,26 +23,57 @@ class SimplesScreen extends React.Component {
     switch (value) {
       case "AC":
         this.setState({
-          entrada: ""
+          entrada: "",
+          saida: ""
         });
         break;
       case "=":
-        var resultado = eval(this.state.entrada);
-        this.setState({
-          saida: resultado
-        }, function () {
-          console.log(this.state.saida);
-        });
+        this._resultado();
         break;
       default:
-        var equacao = this.state.entrada + value;
-        this.setState({
-          entrada: equacao
-        }, function () {
-          console.log(this.state.entrada);
-        });
+        this._operacao(value);
     }
   }
+
+  _operacao(value) {
+    var dadosDeEntrada = this.state.entrada;
+    //Caso o último character seja um operardo, não será possível adicionar outro operador
+    if (this._isCharacter(dadosDeEntrada.slice(-1)) && this._isCharacter(value)) {
+      return;
+    } else {
+      var equacao = dadosDeEntrada + value;
+      this.setState({
+        entrada: equacao
+      });
+    }
+  }
+
+  _resultado() {
+    var dadosDeEntrada = this.state.entrada;
+    if (this._isCharacter(dadosDeEntrada.slice(-1))) {
+      //Caso o último character seja um operardo, o character será removido
+      dadosDeEntrada = dadosDeEntrada.substring(0, dadosDeEntrada.length - 1);
+    }
+    var resultado = eval(dadosDeEntrada);
+    this.setState({
+      saida: resultado
+    });
+  }
+
+  _isCharacter(value) {
+    if (value == '+' || value == '-' || value == '*' || value == '/' || value == '.') {
+      return true;
+    }
+    return false;
+  }
+
+  _isOperador(value) {
+    if (value == '+' || value == '*' || value == '/' || value == '.') {
+      return true;
+    }
+    return false;
+  }
+
 
   render() {
     return (
