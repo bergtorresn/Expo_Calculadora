@@ -59,6 +59,29 @@ class CientificaScreen extends React.Component {
     }
   }
 
+  _operacaoFat() {
+    var dadosDeEntrada = parseFloat(this.state.entrada);
+    if (dadosDeEntrada < 0) {
+      var resultado = -1;
+      this.setState({
+        saida: resultado
+      });
+    } else if (dadosDeEntrada == 0) {
+      var resultado = 1;
+      this.setState({
+        saida: resultado
+      });
+    } else {
+      var tmp = dadosDeEntrada;
+      while (dadosDeEntrada-- > 2) {
+        tmp *= dadosDeEntrada;
+      }
+      this.setState({
+        saida: tmp
+      });
+    }
+  }
+
   _operacaoCos() {
     var dadosDeEntrada = this.state.entrada;
     var cosseno = Math.cos(dadosDeEntrada);
@@ -161,6 +184,7 @@ class CientificaScreen extends React.Component {
           </View>
           <View style={styles.containerRow}>
             <Button title="=" onPress={() => this._onPressButton('=')} />
+            <Button title="X!" onPress={() => this._operacaoFat()} />
           </View>
         </View>
       </View>
