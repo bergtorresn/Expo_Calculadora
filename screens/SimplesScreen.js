@@ -1,6 +1,6 @@
 import React from 'react';
 import { styles } from '../styles/MeusStyles';
-import { addNumerouOuOperador } from '../helpers/EntradaDeDados';
+import { addNumeroOuOperador } from '../helpers/EntradaDeDados';
 import { resultado } from '../helpers/Resultado';
 import {
   Button,
@@ -36,7 +36,7 @@ class SimplesScreen extends React.Component {
         });
         break;
       default:
-        var valorDeEntrada = addNumerouOuOperador(this.state.entrada, value);
+        var valorDeEntrada = addNumeroOuOperador(this.state.entrada, value);
         this.setState({
           entrada: valorDeEntrada
         });

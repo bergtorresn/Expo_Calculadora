@@ -1,4 +1,4 @@
-function addNumerouOuOperador(dadosDeEntrada, value) {
+function addNumeroOuOperador(dadosDeEntrada, value) {
     var ultimoCharacter = dadosDeEntrada.slice(-1);
     if (verificarSeCharacterEOperador(ultimoCharacter) && verificarSeCharacterEOperador(value)) {
         return dadosDeEntrada = dadosDeEntrada.replace(/.$/, value);
@@ -15,4 +15,4 @@ function verificarSeCharacterEOperador(value) {
     return false;
 }
 
-export { addNumerouOuOperador };
+export { addNumeroOuOperador };

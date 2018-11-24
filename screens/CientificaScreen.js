@@ -1,5 +1,14 @@
 import React from 'react';
-import {styles} from '../styles/MeusStyles';
+import { styles } from '../styles/MeusStyles';
+import { addNumeroOuOperador } from '../helpers/EntradaDeDados';
+import { resultado } from '../helpers/Resultado';
+import {
+  operacaoCosseno,
+  operacaoSeno,
+  operacaoFatorial,
+  operacaoRaizQuadrada,
+  operacaoTangente
+} from '../helpers/Trigonometricas';
 import {
   Text,
   View,
@@ -22,123 +31,60 @@ class CientificaScreen extends React.Component {
   _onPressButton(value) {
     switch (value) {
       case "AC":
-        this._limparExibicao();
+        this.setState({
+          entrada: "",
+          saida: ""
+        });
         break;
       case "=":
-        this._resultado();
+        var valorDeSaida = resultado(this.state.entrada);
+        this.setState({
+          saida: valorDeSaida
+        });
         break;
       default:
-        this._operacao(value);
-    }
-  }
-
-  _operacao(value) {
-    var dadosDeEntrada = this.state.entrada;
-    if (dadosDeEntrada.length > 0) {
-      var ultimoCharacter = dadosDeEntrada.slice(-1);
-      if (this._isOperador(ultimoCharacter) && this._isOperador(value)) {
-        dadosDeEntrada = dadosDeEntrada.replace(/.$/, value);
+        var valorDeEntrada = addNumeroOuOperador(this.state.entrada, value);
         this.setState({
-          entrada: dadosDeEntrada
+          entrada: valorDeEntrada
         });
-      } else {
-        var equacao = dadosDeEntrada + value;
+    }
+  }
+
+  _operacaoTrigronometrica(value) {
+    switch (value) {
+      case "sen":
+        var resultado = operacaoSeno(this.state.entrada);
         this.setState({
-          entrada: equacao
+          saida: resultado
         });
-      }
-    } else {
-      if (this._isOperador(value)) {
-        return;
-      } else {
-        var equacao = dadosDeEntrada + value;
+        break;
+      case "cos":
+        var resultado = operacaoCosseno(this.state.entrada);
         this.setState({
-          entrada: equacao
+          saida: resultado
         });
-      }
+        break;
+      case "tan":
+        var resultado = operacaoTangente(this.state.entrada);
+        this.setState({
+          saida: resultado
+        });
+        break;
+      case "raiz":
+        var resultado = operacaoRaizQuadrada(this.state.entrada);
+        this.setState({
+          saida: resultado
+        });
+        break;
+      case "fatorial":
+        var resultado = operacaoFatorial(this.state.entrada);
+        this.setState({
+          saida: resultado
+        });
+        break;
+      default:
+        break;
     }
-  }
-
-  _operacaoFat() {
-    var dadosDeEntrada = parseFloat(this.state.entrada);
-    if (dadosDeEntrada < 0) {
-      var resultado = -1;
-      this.setState({
-        saida: resultado
-      });
-    } else if (dadosDeEntrada == 0) {
-      var resultado = 1;
-      this.setState({
-        saida: resultado
-      });
-    } else {
-      var tmp = dadosDeEntrada;
-      while (dadosDeEntrada-- > 2) {
-        tmp *= dadosDeEntrada;
-      }
-      this.setState({
-        saida: tmp
-      });
-    }
-  }
-
-  _operacaoCos() {
-    var dadosDeEntrada = this.state.entrada;
-    var cosseno = Math.cos(dadosDeEntrada);
-    this.setState({
-      saida: cosseno
-    });
-  }
-  _operacaoSen() {
-    var dadosDeEntrada = this.state.entrada;
-    var seno = Math.sin(dadosDeEntrada);
-    this.setState({
-      saida: seno
-    });
-  }
-  _operacaoTan() {
-    var dadosDeEntrada = this.state.entrada;
-    var tangente = Math.tan(dadosDeEntrada);
-    this.setState({
-      saida: tangente
-    });
-  }
-  _operacaoSqrt() {
-    var dadosDeEntrada = this.state.entrada;
-    var raiz = Math.sqrt(dadosDeEntrada);
-    this.setState({
-      saida: raiz
-    });
-  }
-
-  _resultado() {
-    var dadosDeEntrada = this.state.entrada;
-    if (dadosDeEntrada.length > 0) {
-      var ultimoCharacter = dadosDeEntrada.slice(-1);
-
-      if (this._isOperador(ultimoCharacter)) {
-        //Caso o último character seja um operardo, o character será removido
-        dadosDeEntrada = dadosDeEntrada.substring(0, dadosDeEntrada.length - 1);
-      }
-      var resultado = eval(dadosDeEntrada);
-      this.setState({
-        saida: resultado
-      });
-    }
-  }
-
-  _limparExibicao() {
-    this.setState({
-      entrada: "",
-      saida: ""
-    });
-  }
-
-  _isOperador(value) {
-    if (value == '+' || value == '-' || value == '*' || value == '/' || value == '.') {
-      return true;
-    }
-    return false;
   }
 
   render() {
@@ -159,32 +105,32 @@ class CientificaScreen extends React.Component {
             <Button title="8" onPress={() => this._onPressButton(8)} />
             <Button title="9" onPress={() => this._onPressButton(9)} />
             <Button title="/" onPress={() => this._onPressButton('/')} />
-            <Button title="sen" onPress={() => this._operacaoSen()} />
+            <Button title="sen" onPress={() => this._operacaoTrigronometrica('sen')} />
           </View>
           <View style={styles.containerRow}>
             <Button title="4" onPress={() => this._onPressButton(4)} />
             <Button title="5" onPress={() => this._onPressButton(5)} />
             <Button title="6" onPress={() => this._onPressButton(6)} />
             <Button title="*" onPress={() => this._onPressButton('*')} />
-            <Button title="cos" onPress={() => this._operacaoCos()} />
+            <Button title="cos" onPress={() => this._operacaoTrigronometrica('cos')} />
           </View>
           <View style={styles.containerRow}>
             <Button title="1" onPress={() => this._onPressButton(1)} />
             <Button title="2" onPress={() => this._onPressButton(2)} />
             <Button title="3" onPress={() => this._onPressButton(3)} />
             <Button title="+" onPress={() => this._onPressButton('+')} />
-            <Button title="tan" onPress={() => this._operacaoTan()} />
+            <Button title="tan" onPress={() => this._operacaoTrigronometrica('tan')} />
           </View>
           <View style={styles.containerRow}>
             <Button title="0" onPress={() => this._onPressButton(0)} />
             <Button title="." onPress={() => this._onPressButton('.')} />
             <Button title="-" onPress={() => this._onPressButton('-')} />
-            <Button title="√" onPress={() => this._operacaoSqrt()} />
+            <Button title="√" onPress={() => this._operacaoTrigronometrica('raiz')} />
 
           </View>
           <View style={styles.containerRow}>
             <Button title="=" onPress={() => this._onPressButton('=')} />
-            <Button title="X!" onPress={() => this._operacaoFat()} />
+            <Button title="X!" onPress={() => this._operacaoTrigronometrica('fatorial')} />
           </View>
         </View>
       </View>
