@@ -1,5 +1,7 @@
 import React from 'react';
-import {styles} from '../styles/MeusStyles';
+import { styles } from '../styles/MeusStyles';
+import { addNumerouOuOperador } from '../helpers/EntradaDeDados';
+import { resultado } from '../helpers/Resultado';
 import {
   Button,
   Text,
@@ -25,52 +27,17 @@ class SimplesScreen extends React.Component {
         this._limparExibicao();
         break;
       case "=":
-        this._resultado();
+        var valorDeSaida = resultado(this.state.entrada);
+        this.setState({
+          saida: valorDeSaida
+        });
         break;
       default:
-        this._operacao(value);
-    }
-  }
-
-  _operacao(value) {
-    var dadosDeEntrada = this.state.entrada;
-    if (dadosDeEntrada.length > 0) {
-      var ultimoCharacter = dadosDeEntrada.slice(-1);
-      if (this._isOperador(ultimoCharacter) && this._isOperador(value)) {
-        dadosDeEntrada = dadosDeEntrada.replace(/.$/, value);
+        var valorDeEntrada = addNumerouOuOperador(this.state.entrada, value);
         this.setState({
-          entrada: dadosDeEntrada
+          entrada: valorDeEntrada
         });
-      } else {
-        var equacao = dadosDeEntrada + value;
-        this.setState({
-          entrada: equacao
-        });
-      }
-    } else {
-      if (this._isOperador(value)) {
-        return;
-      } else {
-        var equacao = dadosDeEntrada + value;
-        this.setState({
-          entrada: equacao
-        });
-      }
     }
-  }
-
-  _resultado() {
-    var dadosDeEntrada = this.state.entrada;
-    var ultimoCharacter = dadosDeEntrada.slice(-1);
-
-    if (this._isOperador(ultimoCharacter)) {
-      //Caso o último character seja um operardo, o character será removido
-      dadosDeEntrada = dadosDeEntrada.substring(0, dadosDeEntrada.length - 1);
-    }
-    var resultado = eval(dadosDeEntrada);
-    this.setState({
-      saida: resultado
-    });
   }
 
   _limparExibicao() {
@@ -78,13 +45,6 @@ class SimplesScreen extends React.Component {
       entrada: "",
       saida: ""
     });
-  }
-
-  _isOperador(value) {
-    if (value == '+' || value == '-' || value == '*' || value == '/' || value == '.') {
-      return true;
-    }
-    return false;
   }
 
   render() {
